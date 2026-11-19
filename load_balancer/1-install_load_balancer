@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Installs and configures HAProxy load balancer with roundrobin algorithm
+
+apt-get -y update
+apt-get -y install haproxy
+
+echo "ENABLED=1" >> /etc/default/haproxy
+
+cat << 'CONF' >> /etc/haproxy/haproxy.cfg
+
+frontend holberton_frontend
+	bind *:80
+	mode http
+	default_backend holberton_backend
+
+backend holberton_backend
+	balance roundrobin
+	server 7333-web-01 16.60.135.81:80 check
+	server 7333-web-02 13.40.165.28:80 check
+CONF
+
+service haproxy restart
