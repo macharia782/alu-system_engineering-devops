@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Starts the Apache2 service so the server returns the root page
+service apache2 start
